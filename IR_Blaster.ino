@@ -32,11 +32,19 @@ void loop() {
 	if (digitalRead(INCREMENT_PIN) == LOW){
 		Serial.println("Found increment");
 		display.write_number(count++);
-		delay(200);
+		delay_with_refresh(200);
 	}
 	display.refresh();
 }
 
+
+void delay_with_refresh(int delay_length){
+	delay_length /= 2;
+	for (int i = 0; i < delay_length; i++){
+		display.refresh();
+	}
+
+}
 
 void listen_for_IR_code(){
 	if (My_Receiver.GetResults(&My_Decoder)) {
