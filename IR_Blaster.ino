@@ -14,6 +14,8 @@ IRdecode My_Decoder;
 IRsendNEC My_Sender;
 
 Display display;
+#define INCREMENT_PIN 12
+int count = 0;
 
 void setup()
 {
@@ -22,15 +24,17 @@ void setup()
   Serial.println("Ok, let's see if this works!d!");
 //  My_Receiver.enableIRIn(); // Start the receiver
   display.init();
-  for (int i = 0; i < 10; i++) {
-	  display.write_number(i);
-	  delay(1000);
-  }
 
+  pinMode(INCREMENT_PIN, INPUT);
 }
 
 void loop() {
-
+	if (digitalRead(INCREMENT_PIN) == LOW){
+		Serial.println("Found increment");
+		display.write_number(count++);
+		delay(350);
+	}
+	count %= 10;
 }
 
 
