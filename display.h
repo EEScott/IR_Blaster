@@ -15,8 +15,6 @@
 
 #define TENS_DIGIT_PIN 3
 #define ONES_DIGIT_PIN 2
-#define INCREMENT_PIN 12
-#define ACCEPT_PIN 13
 
 
 class Display {
@@ -24,10 +22,11 @@ public:
 	void init();
 	void write_number(int number);
 	void refresh();
+	void set_blink(bool blinking);
+	void delay_with_refresh(int delay_length);
 private:
 	void clear_display();
 	void write_digit(int number, int digit);
-	void delay_with_refresh(int delay_length);
 
 	bool blink;
 	int blink_count;

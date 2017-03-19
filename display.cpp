@@ -4,9 +4,6 @@
 
 void Display::init(){
 	Serial.println("Initializing Display.");
-	// buttons:
-	pinMode(INCREMENT_PIN, INPUT);
-	pinMode(ACCEPT_PIN, INPUT);
 	// segments:
 	pinMode(DISP0, OUTPUT);
 	pinMode(DISP1, OUTPUT);
@@ -20,7 +17,7 @@ void Display::init(){
 	pinMode(TENS_DIGIT_PIN, OUTPUT);
 	digitalWrite(ONES_DIGIT_PIN, HIGH);
 	digitalWrite(TENS_DIGIT_PIN, HIGH);
-	blink = true;
+	blink = false;
 }
 
 void Display::delay_with_refresh(int delay_length){
@@ -119,13 +116,8 @@ void Display::write_digit(int number, int digit){
 }
 
 void Display::write_number(int number){
-	Serial.print("Writing: ");
-	Serial.println(number);
-
-	// Get first digit:
 	first_digit = number/10;
 	second_digit = number%10;
-
 	delay_with_refresh(200);
 }
 
@@ -138,11 +130,16 @@ void Display::refresh(){
 	} else {
 		clear_display();
 	}
-	if (blink_count++ > 550){
-		Serial.println("Reseting blink_count");
+	if (blink && (blink_count++ > 550)){
 		blink_count=0;
 	}
 	delay(1);
+}
+
+void Display::set_blink(bool blinking){
+	Serial.print("Setting blink to ");
+	Serial.println(blinking);
+	blink = blinking;
 }
 
 void Display::clear_display(){
