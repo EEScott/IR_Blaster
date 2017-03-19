@@ -22,6 +22,10 @@ void setup()
   Serial.println("Ok, let's see if this works!d!");
 //  My_Receiver.enableIRIn(); // Start the receiver
   display.init();
+  for (int i = 0; i < 10; i++) {
+	  display.write_number(i);
+	  delay(1000);
+  }
 
 }
 

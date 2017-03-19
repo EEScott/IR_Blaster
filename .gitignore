@@ -1,0 +1,12 @@
+
+Release/*
+
+.project
+
+.settings/language.settings.xml
+
+.cproject
+
+.ino.cpp
+
+.settings/org.eclipse.cdt.core.prefs
