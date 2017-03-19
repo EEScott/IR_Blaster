@@ -3,7 +3,7 @@
 #include "display.h"
 
 void Display::init(){
-	Serial.println("Init");
+	Serial.println("Initializing Display.");
 	// segments:
 	pinMode(DISP0, OUTPUT);
 	pinMode(DISP1, OUTPUT);

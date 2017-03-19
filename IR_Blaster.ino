@@ -4,6 +4,7 @@
 #include "LiquorLEDCodes.h"
 #include "TVLEDCodes.h"
 #include "display.h"
+#include "IRBlaster.h"
 #include <avr/sleep.h>
 
 //Create a receiver object to listen on pin 11
@@ -12,6 +13,9 @@ IRrecv My_Receiver(11);
 //Create a decoder object
 IRdecode My_Decoder;
 IRsendNEC My_Sender;
+
+// IR Blaster
+IRBlaster My_IR;
 
 Display display;
 #define INCREMENT_PIN 12
@@ -25,19 +29,26 @@ void setup()
   Serial.println("Ok, let's see if this works!");
 //  My_Receiver.enableIRIn(); // Start the receiver
   display.init();
+  My_IR.init();
 
   pinMode(INCREMENT_PIN, INPUT);
   pinMode(ACCEPT_PIN, INPUT);
 }
 
 void loop() {
+	if (digitalRead(ACCEPT_PIN) == LOW){
+		// Enter time setting mode
+
+	}
+
 	if (digitalRead(INCREMENT_PIN) == LOW){
-		Serial.println("Found increment");
 		display.write_number(++count);
 		delay_with_refresh(200);
 	}
 	display.refresh();
 }
+
+
 
 void delay_with_refresh(int delay_length){
 	delay_length /= 2;
