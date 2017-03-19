@@ -137,8 +137,6 @@ void Display::refresh(){
 }
 
 void Display::set_blink(bool blinking){
-	Serial.print("Setting blink to ");
-	Serial.println(blinking);
 	blink = blinking;
 }
 

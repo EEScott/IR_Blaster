@@ -13,7 +13,7 @@
 #define DISP5 9
 #define DISP6 7
 
-#define TENS_DIGIT_PIN 3
+#define TENS_DIGIT_PIN 11
 #define ONES_DIGIT_PIN 2
 
 

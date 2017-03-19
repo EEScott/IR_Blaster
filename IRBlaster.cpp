@@ -16,19 +16,40 @@ void IRBlaster::init(){
 }
 
 void IRBlaster::tick(){
+	// update time
 	if (my_minute != minute()) {
 		my_minute = minute();
 		my_hour = hour();
 		display.write_number(my_minute);
-	}
+		Serial.print("Time: ");
+		Serial.print(my_hour);
+		Serial.print(":");
+		Serial.println(my_minute);
 
+		// Turn on off leds if needed
+		if (my_hour == HOUR_TO_TURN_ON && my_minute == MINUTE_TO_TURN_ON){
+			Serial.println("Turning on LEDs");
+			MySender.send(TVLED_POWER_ON);
+			delay(100);
+			MySender.send(TVLED_POWER_ON);
+			delay(100);
+			MySender.send(TVLED_POWER_ON);
+		} else if (my_hour == HOUR_TO_TURN_OFF && my_minute == MINUTE_TO_TURN_OFF){
+			Serial.println("Turning off LEDs");
+			MySender.send(TVLED_POWER_OFF);
+			delay(100);
+			MySender.send(TVLED_POWER_OFF);
+			delay(100);
+			MySender.send(TVLED_POWER_OFF);
+			delay(100);
+			MySender.send(TVLED_POWER_OFF);
+		}
+	}
 	display.refresh();
 }
 
 void IRBlaster::tick(int *number_to_increment){
 	if (digitalRead(INCREMENT_PIN) == LOW){
-		Serial.print("Found increment hour: ");
-		Serial.println(*number_to_increment);
 		*number_to_increment = *number_to_increment + 1;
 		Serial.println(*number_to_increment);
 		display.write_number(*number_to_increment);
