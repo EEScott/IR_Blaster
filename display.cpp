@@ -20,6 +20,7 @@ void Display::init(){
 	pinMode(TENS_DIGIT_PIN, OUTPUT);
 	digitalWrite(ONES_DIGIT_PIN, HIGH);
 	digitalWrite(TENS_DIGIT_PIN, HIGH);
+	blink = true;
 }
 
 void Display::delay_with_refresh(int delay_length){
@@ -129,10 +130,18 @@ void Display::write_number(int number){
 }
 
 void Display::refresh(){
-	// FLASH BOTH DIGITS
-	write_digit(first_digit, 10);
-	delay(1);
-	write_digit(second_digit, 1);
+	if (blink_count < 400) {
+		// FLASH BOTH DIGITS
+		write_digit(first_digit, 10);
+		delay(1);
+		write_digit(second_digit, 1);
+	} else {
+		clear_display();
+	}
+	if (blink_count++ > 550){
+		Serial.println("Reseting blink_count");
+		blink_count=0;
+	}
 	delay(1);
 }
 

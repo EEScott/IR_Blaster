@@ -15,3 +15,7 @@ void IRBlaster::tick(){
 	}
 	display.refresh();
 }
+
+void IRBlaster::set_time(){
+
+}

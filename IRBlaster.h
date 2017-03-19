@@ -10,6 +10,7 @@ class IRBlaster{
 public:
 	void init();
 	void tick();
+	void set_time();
 private:
 	Display display;
 	int count;

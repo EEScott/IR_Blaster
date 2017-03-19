@@ -29,7 +29,8 @@ private:
 	void write_digit(int number, int digit);
 	void delay_with_refresh(int delay_length);
 
-
+	bool blink;
+	int blink_count;
 	int first_digit;
 	int second_digit;
 };
