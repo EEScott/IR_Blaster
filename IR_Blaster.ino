@@ -32,12 +32,10 @@ void loop() {
 	if (digitalRead(INCREMENT_PIN) == LOW){
 		Serial.println("Found increment");
 		display.write_number(count++);
-		delay(350);
+		delay(200);
 	}
-	count %= 10;
+	display.refresh();
 }
-
-
 
 
 void listen_for_IR_code(){

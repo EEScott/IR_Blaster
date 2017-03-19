@@ -13,13 +13,21 @@
 #define DISP5 9
 #define DISP6 7
 
+#define TENS_DIGIT_PIN 3
+#define ONES_DIGIT_PIN 2
+
 
 class Display {
 public:
 	void init();
 	void write_number(int number);
+	void refresh();
 private:
 	void clear_display();
+	void write_digit(int number, int digit);
+
+	int first_digit;
+	int second_digit;
 };
 
 
