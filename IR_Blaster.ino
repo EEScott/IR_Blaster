@@ -15,28 +15,29 @@ IRsendNEC My_Sender;
 
 Display display;
 #define INCREMENT_PIN 12
+#define ACCEPT_PIN 13
 int count = 0;
 
 void setup()
 {
   Serial.begin(9600);
   delay(500);
-  Serial.println("Ok, let's see if this works!d!");
+  Serial.println("Ok, let's see if this works!");
 //  My_Receiver.enableIRIn(); // Start the receiver
   display.init();
 
   pinMode(INCREMENT_PIN, INPUT);
+  pinMode(ACCEPT_PIN, INPUT);
 }
 
 void loop() {
 	if (digitalRead(INCREMENT_PIN) == LOW){
 		Serial.println("Found increment");
-		display.write_number(count++);
+		display.write_number(++count);
 		delay_with_refresh(200);
 	}
 	display.refresh();
 }
-
 
 void delay_with_refresh(int delay_length){
 	delay_length /= 2;
