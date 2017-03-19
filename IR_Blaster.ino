@@ -1,3 +1,6 @@
+// Author: Scott Ireton
+// Date: March 19, 2017
+
 #include "Arduino.h"
 //#include "IRLib.h"
 //
