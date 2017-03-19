@@ -4,6 +4,9 @@
 
 void Display::init(){
 	Serial.println("Initializing Display.");
+	// buttons:
+	pinMode(INCREMENT_PIN, INPUT);
+	pinMode(ACCEPT_PIN, INPUT);
 	// segments:
 	pinMode(DISP0, OUTPUT);
 	pinMode(DISP1, OUTPUT);
@@ -17,6 +20,13 @@ void Display::init(){
 	pinMode(TENS_DIGIT_PIN, OUTPUT);
 	digitalWrite(ONES_DIGIT_PIN, HIGH);
 	digitalWrite(TENS_DIGIT_PIN, HIGH);
+}
+
+void Display::delay_with_refresh(int delay_length){
+	delay_length /= 2;
+	for (int i = 0; i < delay_length; i++){
+		refresh();
+	}
 }
 
 void Display::write_digit(int number, int digit){
@@ -114,6 +124,8 @@ void Display::write_number(int number){
 	// Get first digit:
 	first_digit = number/10;
 	second_digit = number%10;
+
+	delay_with_refresh(200);
 }
 
 void Display::refresh(){

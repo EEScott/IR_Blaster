@@ -3,7 +3,6 @@
 #include "IRLibTimer.h"
 #include "LiquorLEDCodes.h"
 #include "TVLEDCodes.h"
-#include "display.h"
 #include "IRBlaster.h"
 #include <avr/sleep.h>
 
@@ -17,10 +16,6 @@ IRsendNEC My_Sender;
 // IR Blaster
 IRBlaster My_IR;
 
-Display display;
-#define INCREMENT_PIN 12
-#define ACCEPT_PIN 13
-int count = 0;
 
 void setup()
 {
@@ -28,35 +23,15 @@ void setup()
   delay(500);
   Serial.println("Ok, let's see if this works!");
 //  My_Receiver.enableIRIn(); // Start the receiver
-  display.init();
-  My_IR.init();
 
-  pinMode(INCREMENT_PIN, INPUT);
-  pinMode(ACCEPT_PIN, INPUT);
+  My_IR.init();
 }
 
 void loop() {
-	if (digitalRead(ACCEPT_PIN) == LOW){
-		// Enter time setting mode
-
-	}
-
-	if (digitalRead(INCREMENT_PIN) == LOW){
-		display.write_number(++count);
-		delay_with_refresh(200);
-	}
-	display.refresh();
+	My_IR.tick();
 }
 
 
-
-void delay_with_refresh(int delay_length){
-	delay_length /= 2;
-	for (int i = 0; i < delay_length; i++){
-		display.refresh();
-	}
-
-}
 
 void listen_for_IR_code(){
 	if (My_Receiver.GetResults(&My_Decoder)) {
